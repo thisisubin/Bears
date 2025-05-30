@@ -1,17 +1,22 @@
 package org.example;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.FileWriter;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CrawlBaseBall2 {
     public static void main(String[] args) {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
+        List<InningInfoDTOEX> inningInfoListEX2 = new ArrayList<>();
 
         try {
             String url = "https://sports.daum.net/match/80090636?tab=cast";
@@ -42,27 +47,40 @@ public class CrawlBaseBall2 {
                 for (WebElement history : histories) {
                     try {
                         WebElement player = history.findElement(By.cssSelector(".txt_player"));
-                        Thread.sleep(2000);
-                        System.out.println("타자 : " + player.getText().trim());
+                        String playerName = player.getText().trim();
 
+                        System.out.println("타자 : " + player.getText().trim());
+                        int ballCount = 0;
+                        int strikeCount = 0;
                         List<WebElement> scoreItems = history.findElements(By.cssSelector("span.item_element.type_score"));
 
                         for (WebElement item : scoreItems) {
                             try {
                                 WebElement ball = item.findElement(By.cssSelector("span.txt_ball"));
                                 WebElement strike = item.findElement(By.cssSelector("span.txt_strike"));
-                                Thread.sleep(2000);
+                                ballCount = Integer.parseInt(ball.getText().trim());
+                                strikeCount = Integer.parseInt(strike.getText().trim());
                                 System.out.print(ball.getText().trim() + " - ");
                                 System.out.println(strike.getText().trim());
                             } catch (NoSuchElementException e) {
                                 System.out.println("(txt_ball 없음)");
                             }
+                            // 리스트에 추가
+                            inningInfoListEX2.add(new InningInfoDTOEX(inningName, playerName, strikeCount, ballCount));
+
                         }
 
                     } catch (NoSuchElementException e) {
                         System.out.println("(없음)");
                     }
                     System.out.println();
+                }
+                //JSON을 사람이 읽기 편한 포맷(줄바꿈, 들여쓰기)으로
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                try (FileWriter writer = new FileWriter("inningsEX2.json")) {
+                    gson.toJson(inningInfoListEX2, writer);
+
+                    System.out.println("inningsEX2.json 파일로 저장 완료!");
                 }
             }
             } catch (Exception e) {
