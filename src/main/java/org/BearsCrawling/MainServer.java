@@ -11,11 +11,10 @@ public class MainServer {
     ServerSocket server = null; // ServerSocket타입 server 선언 후 null 대입
     Socket child = null; // Socket타입 child 선언 후 null 대입
 
-    HashMap<String, PrintWriter> hm; // 방송국
+    HashMap<String, PrintWriter> hm; // 클라이언트 관리용
 
-    public MainServer() { //ChatServer 생성자
-
-        PredictionThread pr;
+    public MainServer() { //MainServer 생성자
+        ClientThread pr;
         //ChatServerThread타입에 sr 변수 선언
         //브로드 캐스팅을 하기 위한 쓰레드 객체
         Thread t;
@@ -32,10 +31,14 @@ public class MainServer {
             hm = new HashMap<String, PrintWriter>();
             //hashMap객체를 생성해서 hm 변수에 대입
 
+            CrawlerThread crawler = new CrawlerThread(hm); //크롤러 스레드
+            Thread crawlerThread = new Thread(crawler); //
+            crawlerThread.start();
+
             while( true ) { // 무한 반복
                 child = server.accept();
                 if( child != null ) {
-                    pr = new PredictionThread( child, hm );
+                    pr = new ClientThread( child, hm );
                     t = new Thread(pr);
                     t.start();
                 }

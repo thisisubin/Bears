@@ -7,7 +7,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
-public class PredictionUI extends JFrame {
+public class Client extends JFrame {
     private JButton strikeButton, ballButton, submitButton;
     private JTextArea logArea;
     private JLabel statusLabel;
@@ -19,7 +19,7 @@ public class PredictionUI extends JFrame {
     private BufferedReader in;
     private String userName;
 
-    public PredictionUI(String userName) {
+    public Client(String userName) {
         this.userName = userName;
 
         setTitle("투구 예측 클라이언트 - " + userName);
@@ -69,9 +69,12 @@ public class PredictionUI extends JFrame {
                     while ((msg = in.readLine()) != null) {
                         if (msg.startsWith("[정보]")) {
                             updateStatus(msg.replace("[정보]", "").trim());
-                        } else {
-                            log("[받음] " + msg);
+                        } else if (msg.startsWith("[예측]")){
+                            log(msg);
+                        } else if (msg.startsWith("[결과]")) {
+                            log(msg);
                         }
+
                     }
                 } catch (IOException e) {
                     log("서버로부터 수신 실패: " + e.getMessage());
@@ -104,17 +107,18 @@ public class PredictionUI extends JFrame {
         setVisible(true);
     }
 
+    //서버로 보낼 클라이언트의 예측 데이터
     private void sendPitchData() {
         try {
             JSONObject json = new JSONObject();
             json.put("user", userName);
             json.put("type", "pitch");
 
-            JSONObject data = new JSONObject();
-            data.put("strike", strikeCount);
-            data.put("ball", ballCount);
+            JSONObject predData = new JSONObject();
+            predData.put("strike", strikeCount);
+            predData.put("ball", ballCount);
 
-            json.put("data", data);
+            json.put("predData", predData);
 
             out.println(json.toString());
             out.flush();
@@ -145,7 +149,7 @@ public class PredictionUI extends JFrame {
     public static void main(String[] args) {
         String name = JOptionPane.showInputDialog("닉네임을 입력하세요:");
         if (name != null && !name.isEmpty()) {
-            new PredictionUI(name);
+            new Client(name);
         }else {
             System.out.println("닉네임을 입력하지 않아 프로그램을 종료합니다.");
         }
