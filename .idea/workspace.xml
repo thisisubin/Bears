@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0aeabac9-47e2-44b6-ba8d-aa9caec5431d" name="Changes" comment="✨">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/BearsCrawling/DoosanLiveCrawl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+    <list default="true" id="0aeabac9-47e2-44b6-ba8d-aa9caec5431d" name="Changes" comment="✨ 클라이언트-서버 소켓 통신 구축">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CrawlBaseBall2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CrawlBaseBall2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/innings.json" beforeDir="false" afterPath="$PROJECT_DIR$/innings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inningsEX2.json" beforeDir="false" afterPath="$PROJECT_DIR$/inningsEX2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/BearsCrawling/DoosanLiveCrawl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/BearsCrawling/DoosanLiveCrawl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/BearsCrawling/MainClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/BearsCrawling/PredictionThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/BearsCrawling/PredictionThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/BearsCrawling/PredictionUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/BearsCrawling/PredictionUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +42,18 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.ClientTCP.executor": "Run",
     "Application.CrawlBaseBall2.executor": "Run",
     "Application.DoosanLiveCrawl.executor": "Run",
     "Application.DoosanLiveCrawl2.executor": "Run",
     "Application.JsonBaseBall.executor": "Run",
     "Application.JsonBaseBall2.executor": "Run",
     "Application.JsonTest.executor": "Run",
+    "Application.MainClient.executor": "Run",
+    "Application.MainServer.executor": "Run",
+    "Application.PredictionUI.executor": "Run",
     "Application.SeleniumBaseBall.executor": "Run",
+    "Application.ServerTCP.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -62,13 +70,13 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CrawlBaseBall2">
+  <component name="RunManager" selected="Application.DoosanLiveCrawl">
     <configuration name="CrawlBaseBall2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.CrawlBaseBall2" />
       <module name="BearBaseBall" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.BearsCrawling.*" />
+          <option name="PATTERN" value="org.example.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -102,12 +110,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JsonTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.JsonTest" />
+    <configuration name="MainServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.BearsCrawling.MainServer" />
       <module name="BearBaseBall" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.SeleniumBaseBall" />
+          <option name="PATTERN" value="org.BearsCrawling.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -115,8 +123,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="crawlBaseBall" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.crawlBaseBall" />
+    <configuration name="PredictionUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.BearsCrawling.PredictionUI" />
       <module name="BearBaseBall" />
       <extension name="coverage">
         <pattern>
@@ -130,11 +138,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DoosanLiveCrawl" />
+        <item itemvalue="Application.PredictionUI" />
+        <item itemvalue="Application.MainServer" />
         <item itemvalue="Application.CrawlBaseBall2" />
         <item itemvalue="Application.DoosanLiveCrawl2" />
-        <item itemvalue="Application.DoosanLiveCrawl" />
-        <item itemvalue="Application.crawlBaseBall" />
-        <item itemvalue="Application.JsonTest" />
       </list>
     </recent_temporary>
   </component>
@@ -155,11 +163,56 @@
       <option name="project" value="LOCAL" />
       <updated>1748529414999</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="✨ 실시간 크롤링 기능 추가 및 JSON 파일 생성">
+      <option name="closed" value="true" />
+      <created>1748596129943</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748596129943</updated>
+    </task>
+    <task id="LOCAL-00003" summary="✨ 실시간 크롤링 기능 추가 및 JSON 파일 생성">
+      <option name="closed" value="true" />
+      <created>1748756898741</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748756898741</updated>
+    </task>
+    <task id="LOCAL-00004" summary="✨">
+      <option name="closed" value="true" />
+      <created>1748757128155</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748757128155</updated>
+    </task>
+    <task id="LOCAL-00005" summary="✨">
+      <option name="closed" value="true" />
+      <created>1748757484988</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748757484988</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="✨ 실시간 크롤링 기능 추가 및 JSON 파일 생성" />
     <MESSAGE value="✨" />
-    <option name="LAST_COMMIT_MESSAGE" value="✨" />
+    <MESSAGE value="✨ 클라이언트-서버 소켓 통신 구축" />
+    <option name="LAST_COMMIT_MESSAGE" value="✨ 클라이언트-서버 소켓 통신 구축" />
   </component>
 </project>
