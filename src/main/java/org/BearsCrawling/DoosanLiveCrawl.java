@@ -50,6 +50,7 @@ public class DoosanLiveCrawl {
 
                 WebElement linkClickable = wait.until(ExpectedConditions.elementToBeClickable(link));
                 linkClickable.click();
+                Thread.sleep(2000);
 
                 System.out.println("===== " + inningName + " =====");
 
