@@ -55,7 +55,7 @@ public class Client extends JFrame {
         // 소켓 연결 및 수신 쓰레드 시작
         try {
             System.out.println("*****클라이언트*****");//출력
-            Socket socket = new Socket("172.30.1.92", 7777);
+            Socket socket = new Socket("ip주소", 7777);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
